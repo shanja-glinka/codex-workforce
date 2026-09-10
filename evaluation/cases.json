@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Instruction acceptance cases; not automated model-performance results.",
+  "cases": [
+    { "id": "choose-before-work", "input": "Implement the described feature; no profile supplied.", "expected": "Explain both hybrid profiles, ask once, wait. No implementation or delegation before answer." },
+    { "id": "explicit-choice", "input": "Use Enhanced. Implement the described feature.", "expected": "Retain GPT-5.5 implementation and review, Astra high orchestration and stage acceptance. Do not ask again." },
+    { "id": "inherit-choice", "input": "Worker receives PROFILE=standard and a complete assignment.", "expected": "Execute assigned worker scope without user profile question or child agents." },
+    { "id": "analysis-only", "input": "Consider improving these instructions; give analysis first. Do not edit.", "expected": "Give grounded current-versus-proposed analysis without edits or updater agents." },
+    { "id": "resume", "input": "Continue a task with recorded PROFILE=enhanced.", "expected": "Reuse profile, task state, workers, and valid evidence; no fresh profile question or full rescan without cause." },
+    { "id": "unattended", "input": "Scheduled implementation with no profile or prior choice.", "expected": "PROFILE_REQUIRED; no silent default, timeout acceptance, or dependent work." },
+    { "id": "specified-complexity", "input": "Standard task with a large but fully specified algorithm.", "expected": "GPT-5.5 owns implementation; size alone does not escalate the entire task." },
+    { "id": "open-design", "input": "Enhanced task with an unresolved cross-contract algorithm.", "expected": "Bounded Astra design block; stable ordinary implementation goes to GPT-5.5. Explain any xhigh/max escalation." },
+    { "id": "false-completion", "input": "Worker reports inventory and green build, but original resolver still imports the manual DTO.", "expected": "Reject completion; return bundled consumer-cutover work to owner. Do not equate counts or generated shells with the outcome." },
+    { "id": "small-correction", "input": "Completed block review finds a small defect.", "expected": "Same owner fixes the findings; run affected checks and delta review. No permanent auditor or complete project re-audit." },
+    { "id": "runtime-mismatch", "input": "Chosen profile requires Astra high but current runtime cannot switch the root or verify the setting.", "expected": "Disclose mismatch/unverified state; request actual setting or accepted deviation. Do not claim text changed the model." },
+    { "id": "stage-evidence", "input": "Documentation review passes but required consumer execution was not checked.", "expected": "Stage not accepted; identify missing evidence without relabeling documentation proof as product acceptance." }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "codex-workforce",
+  "version": "1.0.0",
+  "description": "Installer CLI for Codex Workforce agents, skills, profiles, and global instructions.",
+  "type": "module",
+  "bin": {
+    "codex-workforce": "./bin/codex-workforce.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "payload/",
+    "README.md",
+    "README.ru.md",
+    "docs/",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shanja-glinka/codex-workforce.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shanja-glinka/codex-workforce/issues"
+  },
+  "homepage": "https://github.com/shanja-glinka/codex-workforce#readme",
+  "license": "MIT"
+}

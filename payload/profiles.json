@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "1.0.0",
+  "selection": "ask-once-per-task",
+  "profiles": {
+    "standard": {
+      "orchestrator": { "model": "gpt-6-astra", "effort": "low" },
+      "probe": { "model": "gpt-5.5", "effort": "medium" },
+      "worker": { "model": "gpt-5.5", "effort": "high" },
+      "blockReviewer": { "model": "gpt-5.5", "effort": "xhigh" },
+      "stageReviewer": { "model": "gpt-6-astra", "effort": "high" },
+      "design": { "model": "gpt-6-astra", "effort": "high", "scope": "targeted-assistance" }
+    },
+    "enhanced": {
+      "orchestrator": { "model": "gpt-6-astra", "effort": "high" },
+      "probe": { "model": "gpt-5.5", "effort": "medium" },
+      "worker": { "model": "gpt-5.5", "effort": "high" },
+      "blockReviewer": { "model": "gpt-5.5", "effort": "xhigh" },
+      "stageReviewer": { "model": "gpt-6-astra", "effort": "high" },
+      "design": { "model": "gpt-6-astra", "effort": "high", "scope": "bounded-open-design" }
+    }
+  },
+  "escalation": {
+    "model": "gpt-6-astra",
+    "efforts": ["xhigh", "max"],
+    "requires": "A stated unresolved reasoning problem and expected benefit; respect user budget and effort limits."
+  }
+}
