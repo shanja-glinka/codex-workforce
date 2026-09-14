@@ -6,10 +6,17 @@ without changing the install command or renaming your agents.
 
 [`payload/profiles.json`](../payload/profiles.json) is the machine-readable routing
 policy. [`dispatch.md`](../payload/skills/workforce-orchestrate/references/dispatch.md)
-explains its use and the user-facing selection gate. Both ship with the release.
+explains its use and the contextual selection rules. Both ship with the release.
 This is configuration and agent guidance, not a scheduler that intercepts tool calls.
 
 ## Standard
+
+Standard and Enhanced are optional starting recommendations, not exhaustive or
+binding model/effort schedules. Choosing a profile expresses an approach preference;
+it does not by itself require its exact models, efforts, or team composition. Adapt
+routing to the task, available capabilities, and user limits, or use a custom setup
+without a named profile. Only separately explicit model/effort/budget constraints
+make those settings mandatory. Keep review independence and verification requirements.
 
 Use when the requirements and solution are sufficiently described. Astra low owns
 orchestration, GPT-5.5 medium owns bounded investigation, GPT-5.5 high implements,
@@ -28,23 +35,32 @@ sophisticated algorithm do not automatically require Enhanced.
 
 ## Selection contract
 
-The user-facing agent asks before substantive execution and delegation, explains
-both profiles, and waits for an explicit answer. A profile explicitly supplied in
-the task or by a native launch shortcut counts as the choice. Children inherit it.
-Follow-ups and resumed work retain it; a new task without a choice gets a new question.
+Reuse an explicit task or native launch profile, active task choice, or applicable
+standing preference. Concrete, sufficiently specified tasks and small fixes proceed
+with Standard without asking. Autonomous instructions and unattended execution
+allow the agent to choose Standard for clear solutions or Enhanced for substantial
+unresolved design. Preserve the choice and its source across continuations.
 
-Read-only orientation that does not depend on the answer may continue while waiting.
-Implementation may not. Unattended work needs an explicit preset in its prompt or
-launch configuration; otherwise it returns PROFILE_REQUIRED. Analysis-only requests
-do not become implementation and do not need a profile question merely to answer.
+Ask once only for long-running, multi-stage work with substantial unresolved solution
+choices where the profile materially changes approach or resource use, if no prior
+choice or delegated selection applies. Explain both profiles and wait for an explicit
+answer before dependent work. Continue independent authorized prerequisites. Duration,
+production risk, urgency, and step count alone do not justify the question.
 
-The installer does not select a permanent default. Examples:
+The installer does not change base model settings or invent a permanent user preference.
+Standard is a routing default, not evidence that the running model changed. Examples:
 
 ```text
-Use Standard. Implement the described adapter and switch its consumers.
+Create and verify backups, then enable the maintenance page. Work autonomously.
+Fix the described validation error.
 Use Enhanced. Resolve the ambiguous contract, then complete the migration.
+Plan and implement a new platform across multiple stages; architecture is undecided.
 Analyze these options only. Do not edit files.
 ```
+
+The first two proceed without a profile question; the third honors Enhanced; the
+fourth qualifies for the question absent a preference or delegated selection; the
+fifth remains analysis-only.
 
 ## Actual model settings
 
@@ -64,7 +80,9 @@ must be reported as unverified if the runtime doesn't expose it.
 Roles omit model/effort intentionally, because Codex role configuration can override
 spawn parameters. The orchestrator supplies actual model/effort per role. A runtime
 without those capabilities cannot provide this routing; the agent must disclose
-that and request an acceptable fallback, not silently use another model.
+the available settings when material. A user-selected profile also allows adaptation;
+explicit strict model/effort/budget requirements need the required
+setting or an accepted fallback before dependent work. Do not claim exact routing.
 
 ## Complete blocks, proportional verification
 

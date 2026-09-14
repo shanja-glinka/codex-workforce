@@ -5,9 +5,11 @@ description: "Implement a complete owned block, self-review conventions and beha
 
 # Complete the owned result
 
-Read the parent's assignment and applicable instructions. Inherit PROFILE; do not
-ask the user to choose again. Missing GOAL, WRITE_SET, or profile goes back to the
-parent. Do not start another orchestration layer or spawn children.
+Read the parent's assignment and applicable instructions. Inherit the approach and
+constraints; PROFILE may be standard, enhanced, custom, or absent. Do not ask the user
+to choose again. Missing GOAL or WRITE_SET goes back to the parent; an absent profile
+name alone does not block clear work. Do not start another orchestration layer or
+spawn children.
 
 Respect REQUEST_KIND. An analysis assignment produces analysis, not code edits.
 For implementation, deliver the complete GOAL within ownership: production consumers,

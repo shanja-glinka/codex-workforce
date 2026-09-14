@@ -4,9 +4,16 @@ Current release routing is recorded in `{{CODEX_HOME}}/codex-workforce/profiles.
 This document explains that policy. A future model upgrade changes the versioned
 policy and guidance together; it does not rename roles or alter the workflow.
 
-Both profiles use **GPT-6 Astra and GPT-5.5**. Enhanced extends Standard; it never
-replaces all workers with Astra. Select by uncertainty in the solution, not duration
-or code volume. A sophisticated but fully specified algorithm can stay with GPT-5.5.
+Standard and Enhanced are optional starting recommendations, not exhaustive or
+binding model/effort schedules. Choosing a profile expresses an approach preference;
+it does not by itself require its exact models, efforts, or team composition. Adapt
+routing to the task, available capabilities, and user limits, or use a custom setup
+without a named profile. Only separately explicit model/effort/budget constraints
+make those settings mandatory. Keep review independence and verification requirements.
+
+The recommended presets combine **GPT-6 Astra and GPT-5.5**. Enhanced emphasizes
+uncertain solution work; it does not automatically move all workers to Astra. The
+table describes starting recommendations, not mandatory runtime settings.
 
 | Responsibility | Standard | Enhanced |
 | --- | --- | --- |
@@ -17,29 +24,47 @@ or code volume. A sophisticated but fully specified algorithm can stay with GPT-
 | Completed block (`workforce_reviewer`, `MODE=block`) | `gpt-5.5`, `xhigh` | `gpt-5.5`, `xhigh` |
 | Major stage (`workforce_reviewer`, `MODE=stage`) | `gpt-6-astra`, `high` | `gpt-6-astra`, `high` |
 
-## Ask once, wait, inherit
+## Resolve, ask only when useful, inherit
 
-Only the user-facing orchestrator asks before execution. Use an available question
-tool or ask in plain text when none exists. Explain in the user's language:
+Apply these rules in order:
 
-**Standard:** Astra low manages the task; GPT-5.5 medium investigates, GPT-5.5 high
-implements, GPT-5.5 xhigh reviews complete blocks, and Astra high accepts major stages.
-Suitable when requirements and the solution are sufficiently described.
+1. Honor the user's explicit profile, active task choice, native launch profile, or
+   applicable standing preference. The latest explicit instruction takes precedence.
+2. If the user delegates execution or selection ("work autonomously", "choose
+   yourself", "no profile questions"), or execution is unattended, choose without
+   asking: Standard for a sufficiently described solution; Enhanced for substantial
+   unresolved architecture or algorithm work. Briefly state the choice when useful.
+3. Concrete, sufficiently specified work and small fixes use Standard without asking.
+   A release runbook with backups, verification, and a maintenance page qualifies,
+   even if important, lengthy, or involving production. Risk calls for appropriate
+   checks and existing permissions, not a profile questionnaire.
+4. Ask only before long-running, multi-stage work with substantial unresolved solution
+   choices where profile selection materially changes the approach or resource use,
+   and only if none of the preceding rules applies. Briefly explain both profiles:
+   Standard uses Astra low to orchestrate, GPT-5.5 medium to investigate, GPT-5.5 high
+   to implement, GPT-5.5 xhigh to review blocks, and Astra high to accept stages.
+   Enhanced retains those GPT-5.5 roles and uses Astra high for orchestration and
+   bounded open design. Ask once in the user's language about the preferred approach;
+   offer Standard and Enhanced as examples and allow a custom setup or delegated
+   selection. Do not force a binary choice between the presets.
+5. For remaining bounded tasks, default to Standard with targeted assistance as
+   needed. Clarify genuinely missing task facts separately; do not substitute a
+   profile questionnaire for understanding the task.
 
-**Enhanced:** The same GPT-5.5 workers and reviewers remain. Astra high orchestrates
-and takes bounded uncertain architectural/algorithmic work. Stronger Astra reasoning
-can be used when justified. Suitable when the solution itself still has to be found.
+When rule 4 applies, wait for an explicit answer before profile-dependent work;
+preselection or elapsed time is not an answer. Continue independent authorized
+prerequisites, including requested backups and their verification, while waiting.
+Do not finish with only a profile question while such work remains possible.
+Missing a profile alone never blocks concrete, autonomous, or unattended execution.
+Real missing access, ambiguous destructive scope, or explicit budget restrictions
+remain separate constraints; autonomous selection grants no extra permissions.
 
-Then ask: **Which profile should I use: Standard or Enhanced?**
-In Russian: **Как выполнять работу: стандартным или усиленным профилем?**
-
-Do not silently choose the preselected option or treat a timeout as an answer. Before
-the answer, only non-dependent read-only orientation is allowed. An explicit profile
-in the request or a still-active choice for this task satisfies the gate. Preserve it
-in the existing task state; do not ask on every turn, block, correction, or resumption.
-Children inherit PROFILE; a missing value is a question to the parent, not the user.
-For unattended tasks with no prior choice, report PROFILE_REQUIRED and leave execution
-pending. An explicit user preference changes the profile; do not change it silently.
+Keep PROFILE and PROFILE_SOURCE (explicit, inherited, preference, or automatic) in
+existing task state. Follow-ups, corrections, resumption, and compaction retain them.
+Children inherit the approach and actual assignment. A missing profile name alone
+is not a blocker when the task and constraints are clear.
+Do not infer a permanent preference from one task's choice or create a new preference
+file. Use an existing recorded standing preference across tasks when applicable.
 
 ## Actual routing and escalation
 
@@ -50,8 +75,12 @@ Do not infer actual model identity from an agent's self-description.
 
 A prompt cannot change the running orchestrator's model or effort. If runtime
 controls allow changing it, use the authorized setting and verify it. Otherwise
-explain the mismatch and the required app/CLI setting; wait for that setting or an
-explicitly accepted deviation before claiming execution under the chosen profile.
+continue authorized work with available runtime settings. A difference from the
+recommendation is an adaptation, not an approval gate, even for a user-selected
+profile. Mention actual routing when material to expectations; do not narrate every
+routine adaptation. For an explicit strict model/effort or budget
+requirement, request the required setting or an accepted deviation before dependent
+work. Never claim exact profile execution when settings do not match.
 Do not create an extra orchestrator or new user task to conceal a mismatch.
 If availability cannot be verified, say so; never claim verified routing.
 
@@ -59,8 +88,9 @@ Use Astra high for a bounded unresolved decision, not routine searching or mecha
 edits. For prolonged uncertainty where better reasoning can reduce retries, xhigh/max
 may be appropriate: state the unresolved question and expected benefit first. No
 automatic max based on elapsed time, task size, or any single failure. In Standard,
-targeted Astra high assistance preserves the profile; broad escalation to Enhanced
-requires the user's choice. Respect explicit user effort/budget limits in both modes.
+adapt model/effort or team composition when evidence warrants it, without requiring
+a new profile choice. Preserve the user's approach preference and state material
+changes in approach or expected resource use; stay within explicit user limits.
 Stage-review effort increases only when the acceptance problem itself warrants it.
 
 Compare available total usage, attempts, rework, and accepted outcomes. If telemetry
@@ -71,7 +101,8 @@ benchmark results as a guaranteed price reduction for every coding task.
 
 ```text
 TASK: identifier and assignment version
-PROFILE: standard | enhanced (user-selected, inherited)
+PROFILE: standard | enhanced | custom | none (approach preference)
+PROFILE_SOURCE: explicit | inherited | preference | automatic
 REQUEST_KIND: analysis | implementation
 ROOT / BRANCH: absolute checkout and agreed branch
 USER_OUTCOME: result requested by the user

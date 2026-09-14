@@ -1,6 +1,6 @@
 ---
 name: workforce-orchestrate
-description: "Orchestrate implementation, refactoring, and automation through complete owned blocks, independent review, and stage acceptance. User-facing session only; select Standard or Enhanced before execution."
+description: "Orchestrate implementation, refactoring, and automation through complete owned blocks, independent review, and stage acceptance. User-facing session only; use proportional profile selection without blocking concrete authorized work."
 ---
 
 # Workforce: deliver the requested result
@@ -9,19 +9,35 @@ Use one plan and the task's existing state. Do not create a second workflow engi
 parallel journal, or reporting system. User restrictions, including no GSD, take
 precedence over workflow defaults.
 
-## Choose the profile first
+## Resolve the profile proportionally
 
-Read [dispatch](references/dispatch.md). Before substantive execution or delegation,
-ask once in the user's language: **Standard or Enhanced?** Explain both hybrid
-profiles, including model/effort and responsibilities. Wait for the answer.
-An explicit profile already supplied by the user satisfies this gate. Preserve it
-in the existing plan/context across follow-ups and compaction; children inherit it.
-Unattended tasks need a profile in their task instructions or remain PROFILE_REQUIRED.
+Standard and Enhanced are optional starting recommendations, not exhaustive or
+binding model/effort schedules. Choosing a profile expresses an approach preference;
+it does not by itself require its exact models, efforts, or team composition. Adapt
+routing to the task, available capabilities, and user limits, or use a custom setup
+without a named profile. Only separately explicit model/effort/budget constraints
+make those settings mandatory. Keep review independence and verification requirements.
+
+Read [dispatch](references/dispatch.md). Reuse an explicit profile, active task choice,
+native launch choice, or applicable standing preference. Concrete, sufficiently
+specified work and small fixes proceed without a profile question, using Standard
+as the routing default. "Work autonomously", "choose yourself", "do not ask about
+profiles", and unattended execution delegate selection: choose Standard for a clear
+solution or Enhanced for substantial unresolved design, explain briefly, and proceed.
+
+Ask only for a long-running, multi-stage task with substantial unresolved solution
+choices where the profile materially affects the approach or resource use, and only
+when no choice, preference, or delegated selection already applies. Duration, number
+of steps, production risk, and urgency alone do not trigger the question. Wait for
+an explicit answer only when this narrow question is required; independent authorized
+prerequisites can proceed. Never manufacture a PROFILE_REQUIRED stop for routine,
+autonomous, or unattended work. Preserve PROFILE and its source in existing context;
+children inherit them and never ask the user again.
 
 For analysis-only requests, deliver analysis and stop before implementation.
 A request to consider improvements is not permission to edit. Direct questions and
 status reports do not require profile selection. Small authorized changes can run
-inline after profile selection without inventing stages or spawning workers.
+inline without inventing stages or spawning workers.
 
 ## Preserve the deliverable
 
@@ -48,8 +64,10 @@ Assign substantial independent blocks with disjoint WRITE_SETs, not tasks per fi
 Give shared contracts and lockfiles one owner. Launch independent work before waiting;
 do not fill slots without useful work. Children do not spawn more children.
 
-Astra owns requirements, open decisions, integration, dependencies, and acceptance.
-GPT-5.5 owns the bulk of implementation in **both** profiles. Astra need not write
+The recommended presets assign Astra requirements, open decisions, integration,
+dependencies, and acceptance. Adapt the following model assignments under dispatch;
+they are recommendations, not requirements implied by the profile name.
+GPT-5.5 is the recommended implementation model in **both** presets. Astra need not write
 product code to stay busy; small integration edits are allowed after resolving file
 ownership. In Enhanced, Astra may own a bounded unresolved design/algorithm block.
 Once that contract is stable, pass ordinary implementation to GPT-5.5.
@@ -79,8 +97,9 @@ confirm the pause, and update dependent assignments and invalidated evidence.
 
 ## Review once the block is ready
 
-Use an independent GPT-5.5 xhigh reviewer for a completed substantial block. Before
-closing a major stage, use a separate Astra high stage review. Do not call each edit
+Use an independent reviewer for a completed substantial block (GPT-5.5 xhigh is the
+recommended starting point). Before closing a major stage, use a separate stage
+reviewer (Astra high is recommended). Adapt models and effort under dispatch. Do not call each edit
 a stage. Freeze the reviewed scope and identify its revision plus dirty diff.
 
 Block review checks bugs, regressions, conventions, docs, and consumer integration.

@@ -1,28 +1,77 @@
 {
   "schemaVersion": 1,
-  "policyVersion": "1.0.0",
-  "selection": "ask-once-per-task",
+  "policyVersion": "1.1.0",
+  "selection": "contextual",
   "profiles": {
     "standard": {
-      "orchestrator": { "model": "gpt-6-astra", "effort": "low" },
-      "probe": { "model": "gpt-5.5", "effort": "medium" },
-      "worker": { "model": "gpt-5.5", "effort": "high" },
-      "blockReviewer": { "model": "gpt-5.5", "effort": "xhigh" },
-      "stageReviewer": { "model": "gpt-6-astra", "effort": "high" },
-      "design": { "model": "gpt-6-astra", "effort": "high", "scope": "targeted-assistance" }
+      "orchestrator": {
+        "model": "gpt-6-astra",
+        "effort": "low"
+      },
+      "probe": {
+        "model": "gpt-5.5",
+        "effort": "medium"
+      },
+      "worker": {
+        "model": "gpt-5.5",
+        "effort": "high"
+      },
+      "blockReviewer": {
+        "model": "gpt-5.5",
+        "effort": "xhigh"
+      },
+      "stageReviewer": {
+        "model": "gpt-6-astra",
+        "effort": "high"
+      },
+      "design": {
+        "model": "gpt-6-astra",
+        "effort": "high",
+        "scope": "targeted-assistance"
+      }
     },
     "enhanced": {
-      "orchestrator": { "model": "gpt-6-astra", "effort": "high" },
-      "probe": { "model": "gpt-5.5", "effort": "medium" },
-      "worker": { "model": "gpt-5.5", "effort": "high" },
-      "blockReviewer": { "model": "gpt-5.5", "effort": "xhigh" },
-      "stageReviewer": { "model": "gpt-6-astra", "effort": "high" },
-      "design": { "model": "gpt-6-astra", "effort": "high", "scope": "bounded-open-design" }
+      "orchestrator": {
+        "model": "gpt-6-astra",
+        "effort": "high"
+      },
+      "probe": {
+        "model": "gpt-5.5",
+        "effort": "medium"
+      },
+      "worker": {
+        "model": "gpt-5.5",
+        "effort": "high"
+      },
+      "blockReviewer": {
+        "model": "gpt-5.5",
+        "effort": "xhigh"
+      },
+      "stageReviewer": {
+        "model": "gpt-6-astra",
+        "effort": "high"
+      },
+      "design": {
+        "model": "gpt-6-astra",
+        "effort": "high",
+        "scope": "bounded-open-design"
+      }
     }
   },
   "escalation": {
     "model": "gpt-6-astra",
-    "efforts": ["xhigh", "max"],
+    "efforts": [
+      "xhigh",
+      "max"
+    ],
     "requires": "A stated unresolved reasoning problem and expected benefit; respect user budget and effort limits."
-  }
+  },
+  "selectionRules": {
+    "default": "standard",
+    "reuse": "Explicit task or launch choice, active task context, or applicable standing preference.",
+    "autonomous": "Choose Standard for clear solutions or Enhanced for substantial unresolved design; proceed without asking. Applies to unattended execution too.",
+    "askOnly": "Long-running multi-stage work with substantial unresolved solution choices and material approach/resource impact, with no applicable choice or delegated selection.",
+    "runtimeMismatch": "Adapt to available settings even for a user-selected preset without a new approval gate. Report material actual routing honestly; separately explicit strict model/effort/budget requirements remain binding."
+  },
+  "profileSemantics": "Optional, non-exhaustive recommendations. A named choice expresses approach preference, not strict model/effort/team requirements. Custom or unnamed routing is allowed; separately explicit constraints remain binding."
 }

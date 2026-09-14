@@ -308,3 +308,42 @@ async function writeFixturePackageJson(packageRoot, version) {
     version,
   }, null, 2)}\n`);
 }
+
+test('update installs the real contextual policy into existing consumers and preserves user settings', async (t) => {
+  const fixture = await makeFixture();
+  t.after(() => fs.rm(fixture.temp, { recursive: true, force: true }));
+  const agentsPath = path.join(fixture.codexHome, 'AGENTS.md');
+  const configPath = path.join(fixture.codexHome, 'config.toml');
+  await fs.writeFile(agentsPath, 'User standing instructions\n');
+  await fs.writeFile(configPath, 'model = "user-selected-model"\n');
+  await fs.writeFile(path.join(fixture.packageRoot, 'payload', 'global-instructions.md'),
+    'Before every task, ask Standard or Enhanced and wait.\n');
+  await runCommand('install', fixture.options);
+  await fs.appendFile(agentsPath, '\nUser additions after install\n');
+
+  const packageRoot = path.resolve(import.meta.dirname, '..');
+  const options = { ...fixture.options, packageRoot };
+  const updated = await runCommand('update', options);
+  assert.equal(updated.exitCode, 0, updated.issues.join('\n'));
+  const sourceGlobal = await fs.readFile(path.join(packageRoot, 'payload', 'global-instructions.md'), 'utf8');
+  const actualGlobal = await fs.readFile(agentsPath, 'utf8');
+  assert.ok(actualGlobal.includes(sourceGlobal.replaceAll('{{CODEX_HOME}}', portable(fixture.codexHome)).trim()));
+  assert.doesNotMatch(actualGlobal, /Before every task, ask Standard or Enhanced and wait/);
+  assert.ok(actualGlobal.startsWith('User standing instructions\n'));
+  assert.ok(actualGlobal.endsWith('\nUser additions after install\n'));
+  assert.equal(await fs.readFile(configPath, 'utf8'), 'model = "user-selected-model"\n');
+  for (const relative of [
+    'skills/workforce-orchestrate/SKILL.md',
+    'skills/workforce-orchestrate/references/dispatch.md',
+    'skills/workforce-smoke/SKILL.md',
+  ]) {
+    const expected = (await fs.readFile(path.join(packageRoot, 'payload', relative), 'utf8'))
+      .replaceAll('{{CODEX_HOME}}', portable(fixture.codexHome));
+    assert.equal(await fs.readFile(path.join(fixture.codexHome, relative), 'utf8'), expected);
+  }
+  const policy = JSON.parse(await fs.readFile(path.join(fixture.codexHome, 'codex-workforce/profiles.json'), 'utf8'));
+  assert.equal(policy.selection, 'contextual');
+  assert.equal(policy.selectionRules.default, 'standard');
+  assert.equal((await runCommand('status', options)).exitCode, 0);
+  assert.deepEqual((await runCommand('update', options)).actions, []);
+});

@@ -15,7 +15,8 @@ by its CLI. Report missing files, drift, broken links, and instruction shadowing
 No live agent calls are required for the installer's ordinary test suite.
 
 For an explicitly requested live smoke, inherit the task's selected PROFILE; if
-none exists, the user-facing parent asks once before spawning. Check actual tools
+none exists, the user-facing parent resolves it using dispatch selection rules
+(a bounded, specified smoke uses Standard without a question). Check actual tools
 for custom roles and model/effort overrides. Report missing capability rather than
 claiming success. Do not install another runtime or change account configuration.
 

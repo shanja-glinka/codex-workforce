@@ -1,7 +1,7 @@
 # Contributing
 
 Keep the package small and independently useful. Preserve the user's requested
-outcome, the two hybrid profiles, explicit profile selection, and owned-file safety.
+outcome, the two optional hybrid presets and adaptive routing, contextual profile selection and explicit user preferences, and owned-file safety.
 Do not add company-specific paths, private examples, account data, or mandatory
 third-party workflow dependencies to the public payload.
 

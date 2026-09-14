@@ -33,9 +33,11 @@ codex -p workforce-enhanced
 These explicitly choose a profile and set the root model/effort for that launch.
 
 Restart Codex or start a fresh session to load the new global instructions and roles.
-Before a new implementation task, the orchestrator explains the profiles and asks
-which to use. It waits for your answer. You can also write **“Use Enhanced”** in
-the task itself; workers inherit the choice and do not ask again.
+Concrete tasks proceed without a profile question. Autonomous instructions let the
+agent choose; existing choices and standing preferences are reused. The question is
+reserved for long-running, multi-stage work with substantial unresolved design where
+the choice matters and has not been delegated. See [selection rules](docs/profiles.md).
+You can still write **“Use Enhanced”**; workers inherit the resolved choice.
 
 ```sh
 # Replace the kit's previous version, removing stale owned files
@@ -64,13 +66,18 @@ agent's Standard/Enhanced question or grant publishing rights.
 | Completed block review | GPT-5.5 xhigh | GPT-5.5 xhigh |
 | Major stage acceptance | Astra high | Astra high |
 
-Both profiles retain both families. Enhanced does not move all work to Astra.
+The presets recommend both families. They are optional starting points; custom
+setups and adaptations are allowed even after choosing a profile. Only separately
+explicit model, effort, and budget constraints make exact settings mandatory.
+Enhanced does not automatically move all work to Astra.
 A fully specified difficult algorithm can stay with GPT-5.5. Astra xhigh/max is a
 reasoned escalation for uncertainty, not an automatic choice for every long task.
 
 The selected profile is a routing policy. **Instructions cannot change the already
 running orchestrator's model.** Set Astra and the corresponding effort in your
 client; the agent must disclose a mismatch instead of pretending it changed settings.
+For any approach, including a user-selected profile, adapt to available settings and
+continue; explicit strict model, effort, and budget requirements remain binding.
 The installer does not overwrite your `config.toml`, model defaults, or permissions.
 
 ## How work flows

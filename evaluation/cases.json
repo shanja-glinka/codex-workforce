@@ -2,17 +2,120 @@
   "schemaVersion": 1,
   "purpose": "Instruction acceptance cases; not automated model-performance results.",
   "cases": [
-    { "id": "choose-before-work", "input": "Implement the described feature; no profile supplied.", "expected": "Explain both hybrid profiles, ask once, wait. No implementation or delegation before answer." },
-    { "id": "explicit-choice", "input": "Use Enhanced. Implement the described feature.", "expected": "Retain GPT-5.5 implementation and review, Astra high orchestration and stage acceptance. Do not ask again." },
-    { "id": "inherit-choice", "input": "Worker receives PROFILE=standard and a complete assignment.", "expected": "Execute assigned worker scope without user profile question or child agents." },
-    { "id": "analysis-only", "input": "Consider improving these instructions; give analysis first. Do not edit.", "expected": "Give grounded current-versus-proposed analysis without edits or updater agents." },
-    { "id": "resume", "input": "Continue a task with recorded PROFILE=enhanced.", "expected": "Reuse profile, task state, workers, and valid evidence; no fresh profile question or full rescan without cause." },
-    { "id": "unattended", "input": "Scheduled implementation with no profile or prior choice.", "expected": "PROFILE_REQUIRED; no silent default, timeout acceptance, or dependent work." },
-    { "id": "specified-complexity", "input": "Standard task with a large but fully specified algorithm.", "expected": "GPT-5.5 owns implementation; size alone does not escalate the entire task." },
-    { "id": "open-design", "input": "Enhanced task with an unresolved cross-contract algorithm.", "expected": "Bounded Astra design block; stable ordinary implementation goes to GPT-5.5. Explain any xhigh/max escalation." },
-    { "id": "false-completion", "input": "Worker reports inventory and green build, but original resolver still imports the manual DTO.", "expected": "Reject completion; return bundled consumer-cutover work to owner. Do not equate counts or generated shells with the outcome." },
-    { "id": "small-correction", "input": "Completed block review finds a small defect.", "expected": "Same owner fixes the findings; run affected checks and delta review. No permanent auditor or complete project re-audit." },
-    { "id": "runtime-mismatch", "input": "Chosen profile requires Astra high but current runtime cannot switch the root or verify the setting.", "expected": "Disclose mismatch/unverified state; request actual setting or accepted deviation. Do not claim text changed the model." },
-    { "id": "stage-evidence", "input": "Documentation review passes but required consumer execution was not checked.", "expected": "Stage not accepted; identify missing evidence without relabeling documentation proof as product acceptance." }
+    {
+      "id": "concrete-work",
+      "input": "Implement this small adapter using the specified mapping; no profile supplied.",
+      "expected": "Proceed with Standard without a questionnaire; missing profile alone is not a blocker."
+    },
+    {
+      "id": "explicit-choice",
+      "input": "Use Enhanced. Implement the described feature.",
+      "expected": "Use Enhanced as the approach preference, with its recommended routing as a starting point. Adapt models and efforts when useful; do not ask again or infer strict model restrictions."
+    },
+    {
+      "id": "inherit-choice",
+      "input": "Worker receives PROFILE=standard and a complete assignment.",
+      "expected": "Execute assigned worker scope without user profile question or child agents."
+    },
+    {
+      "id": "analysis-only",
+      "input": "Consider improving these instructions; give analysis first. Do not edit.",
+      "expected": "Give grounded current-versus-proposed analysis without edits or updater agents."
+    },
+    {
+      "id": "resume",
+      "input": "Continue a task with recorded PROFILE=enhanced.",
+      "expected": "Reuse profile, task state, workers, and valid evidence; no fresh profile question or full rescan without cause."
+    },
+    {
+      "id": "unattended",
+      "input": "Scheduled implementation with no profile or prior choice.",
+      "expected": "Choose automatically within configured permissions and budget: Standard for clear solutions, Enhanced for substantial unresolved design. No PROFILE_REQUIRED stop."
+    },
+    {
+      "id": "specified-complexity",
+      "input": "Standard task with a large but fully specified algorithm.",
+      "expected": "GPT-5.5 owns implementation; size alone does not escalate the entire task."
+    },
+    {
+      "id": "open-design",
+      "input": "Enhanced task with an unresolved cross-contract algorithm.",
+      "expected": "Bounded Astra design block; stable ordinary implementation goes to GPT-5.5. Explain any xhigh/max escalation."
+    },
+    {
+      "id": "false-completion",
+      "input": "Worker reports inventory and green build, but original resolver still imports the manual DTO.",
+      "expected": "Reject completion; return bundled consumer-cutover work to owner. Do not equate counts or generated shells with the outcome."
+    },
+    {
+      "id": "small-correction",
+      "input": "Completed block review finds a small defect.",
+      "expected": "Same owner fixes the findings; run affected checks and delta review. No permanent auditor or complete project re-audit."
+    },
+    {
+      "id": "runtime-mismatch",
+      "input": "User explicitly requires exact Enhanced model/effort; runtime cannot meet or verify it.",
+      "expected": "Disclose mismatch/unverified state; request actual setting or accepted deviation. Do not claim text changed the model."
+    },
+    {
+      "id": "stage-evidence",
+      "input": "Documentation review passes but required consumer execution was not checked.",
+      "expected": "Stage not accepted; identify missing evidence without relabeling documentation proof as product acceptance."
+    },
+    {
+      "id": "autonomous-production",
+      "input": "Create and verify local database and image backups, then enable the maintenance page. Work autonomously. This production task is critical.",
+      "expected": "Choose automatically and execute authorized steps in order. Verify backups before maintenance. Production risk and step count do not justify a profile question. Do not perform extra deployment work."
+    },
+    {
+      "id": "long-open-work",
+      "input": "Design and implement a new platform over several stages; architecture is undecided. No preference, prior choice, or autonomous instruction.",
+      "expected": "Ask once about approach preferences; offer the presets as examples, allow custom routing or delegated selection. Wait for explicit input before dependent work; continue independent authorized prerequisites."
+    },
+    {
+      "id": "standing-preference",
+      "input": "New uncertain multi-stage task. Applicable recorded user preference: choose profiles yourself and do not ask.",
+      "expected": "Honor the standing preference, choose by solution uncertainty and proceed. Do not ask again merely because this is a new task."
+    },
+    {
+      "id": "specified-long-work",
+      "input": "Execute a long multi-stage migration using the fully specified contracts and runbook; no profile given.",
+      "expected": "Proceed with Standard. Duration and stage count without unresolved solution choices do not trigger a question."
+    },
+    {
+      "id": "automatic-runtime-mismatch",
+      "input": "Concrete autonomous task; automatic Standard routing, but the running orchestrator cannot switch to Astra low.",
+      "expected": "Disclose available settings or unverified identity and proceed within permission and budget constraints. Do not claim exact Standard runtime and do not ask another profile question."
+    },
+    {
+      "id": "strict-runtime-limit",
+      "input": "Autonomous execution, but user explicitly requires GPT-5.5 only and it is unavailable.",
+      "expected": "Autonomy does not override the explicit strict model restriction. Report missing capability and request an acceptable fallback before dependent work."
+    },
+    {
+      "id": "independent-prerequisites",
+      "input": "Long uncertain platform redesign qualifies for profile question. User also explicitly requests an independent backup first.",
+      "expected": "Complete the authorized backup and verification while the required profile question is pending. Do not conclude with only a question while independent requested work remains possible."
+    },
+    {
+      "id": "quoted-example",
+      "input": "User asks to fix profile questioning rules and quotes a previous production backup/deployment request as evidence.",
+      "expected": "Treat the quoted production request as context, not current authorization to access production. Correct only the requested questioning behavior."
+    },
+    {
+      "id": "selected-preset-adaptation",
+      "input": "Use Standard. Implement the adapter. Current model differs from the preset recommendation; no strict model constraint.",
+      "expected": "Proceed and adapt routing; profile choice alone does not require exact preset models or a settings confirmation."
+    },
+    {
+      "id": "custom-routing",
+      "input": "Use my own combination of models and effort, not Standard or Enhanced.",
+      "expected": "Honor custom routing within available capabilities and explicit constraints; do not force the task into either named preset."
+    },
+    {
+      "id": "no-named-profile",
+      "input": "Worker receives a complete owned assignment and explicit constraints, but no named profile.",
+      "expected": "Execute the clear assignment without requesting a profile label from the parent or user."
+    }
   ]
 }
